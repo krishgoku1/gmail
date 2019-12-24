@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<head>
+    <title>Gmail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="gmail.css"> 
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="topbar row ">
+            
+            <div class="t1">
+                <span id="t11"><button class="navbar-toggler"  type="button" onClick="menu()">
+                <img src="https://img.icons8.com/small/19/000000/menu.png"></button></span>
+                <span><img src="img/gmailruf.png"></span>
+            </div>
+            <div class="t2"> 
+                <form>
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span><input type="text" id="search" name="search"  placeholder="  Search mail.."></span>
+                </form>
+            </div>
+            <br>
+            <div class="t3"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 col-sm-2" id="navContent" style="display: none;">
+              <button id="sentmail" style="height: 50px;width: 135px;margin-top:5px;border-radius: 24px;background:transparent;border:none;box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);margin-bottom:10px;">
+                <img src="https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png"><span>&nbsp Compose</span> 
+              </button>
+              <br>
+              <span id="nc1"><img src="https://img.icons8.com/material-rounded/24/000000/inbox.png">&nbsp Inbox</span><br>
+              <span id="nc1"><img src="https://img.icons8.com/material-rounded/24/000000/star.png">&nbsp Starred</span><br>
+              <span id="nc1"><img src="https://img.icons8.com/material/24/000000/clock.png">&nbsp Snoozed</span><br>
+              <span id="nc1"><img src="https://img.icons8.com/material-sharp/24/000000/file.png">&nbsp Drafts</span>
+          </div>
+          <div class="col-md-10 col-sm-8">
+            <div class="col-md-3" id = "top1">Primary</div>
+            <div class="col-md-3" id = "top1">Social</div>
+            <div class="col-md-3" id = "top1">Promotions</div>
+            <br>
+            <div class="col-md-12">
+              <table class="col-md-12">
+                <tr id="m11">
+                  <td id="m21">
+                    <div id="subj">
+                      hloooo
+                    </div>
+                    <div id="desc">
+                      imjiiiiiiiiiiiiiiiiiiiiii
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="popup" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <input type="text" id="mail_subject" name="mail_subject" placeholder="Subject">
+                <span class="close">&times;</span>
+              </div>
+              <div class="modal-body">
+                <input type="text" id="mail_descrip" name="mail_descrip" placeholder="Description">
+              </div>
+              <div class="modal-footer" > 
+               <button class="submit" onclick="storemail(mail_subject.value,mail_descrip.value)">submit</button>
+              </div>
+            </div>
+          
+          </div>
+    </div>
+</body>
+</html>
+<script>
+function menu() {
+  var x = document.getElementById("navContent");
+  if (x.style.display === "none") {
+    x.style.display = "flex";
+    x.style.flexDirection = "column"
+    x.style.width="16%";
+    // document.getElementsById("top1").style.marginLeft ="15px";
+
+  } else {
+    x.style.display = "none";
+    x.style.width="0px";
+  }
+}
+
+var modal = document.getElementById('popup');
+var btn = document.getElementById("sentmail");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+    modal.style.display = "block";
+
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+  var x=[];
+  var clicks=0;
+function storemail(mail_subject,mail_descrip){
+  
+  var temp={
+    sub : mail_subject,
+    des : mail_descrip
+  }
+  x.push(temp);
+  localStorage.setItem("mail",JSON.stringify(x));
+  var y = JSON.parse(localStorage.getItem("mail"));
+
+  var para = document.createElement("td");
+  para.setAttribute("id", "m21");
+  var para11 = document.createElement("div");
+  para11.setAttribute("id", "subj");
+  var para12 = document.createElement("div");
+  para12.setAttribute("id", "desc");
+  var apn11 = para.appendChild(para11);
+  var apn12 = para.appendChild(para12);
+  var node11 = document.createTextNode(y[clicks].sub);
+  apn11.appendChild(node11);
+  var node12 = document.createTextNode(y[clicks].des);
+  apn12.appendChild(node12);
+  var element = document.getElementById("m11");
+  element.appendChild(para);
+  
+
+  clicks += 1;
+}
+</script>
